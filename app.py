@@ -4,8 +4,8 @@ import requests
 import random
 
 # --- CONFIGURATION ---
-YOUR_GEMINI_API_KEY = "YOUR_GEMINI_API_KEY"
-YOUR_GIPHY_API_KEY = "YOUR_GIPHY_API_KEY"
+YOUR_GEMINI_API_KEY = st.secrets["YOUR_GEMINI_API_KEY"]
+YOUR_GIPHY_API_KEY = st.secrets["YOUR_GIPHY_API_KEY"]
 
 genai.configure(api_key=YOUR_GEMINI_API_KEY)
 model = genai.GenerativeModel('gemini-2.0-flash-thinking-exp-01-21')
