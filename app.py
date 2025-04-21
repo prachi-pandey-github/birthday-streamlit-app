@@ -66,7 +66,7 @@ with col2:
             st.image("images/us.png", use_container_width=True)
             st.markdown(f"<p style='font-size: 20px;'>{personalized_wish}</p>", unsafe_allow_html=True)
             st.markdown("---")
-            display_static_gif("images/birthday_celebration.gif") # Replace with your GIF path
+            display_static_gif("images/birthdaygif.gif") # Replace with your GIF path
 
 
 # --- WHAT IF SECTION ---
