@@ -150,7 +150,7 @@ You get me in ways I can't deny.
 Sweet, mature, and oddly cute,
 A bond like ours? Nothing can mute.
 
-Thank you for finding me that day—
+Thank you for finding me that day, Tom
 Stay forever, please, okay? 💛
 """
 
