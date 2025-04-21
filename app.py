@@ -91,7 +91,7 @@ st.markdown("<p style='text-align: center; font-size: 18px;'>A little digital su
 st.markdown("---")
 
 # --- BIRTHDAY WISH PROMPT (Now defined directly) ---
-birthday_prompt = f"Write a birthday wish for Adii with a warm tone, focusing on his qualities like active listening, caring, understanding, cute, smart. End the wish by wishing him a fantastic day!"
+birthday_prompt = f"Write a birthday wish for Adii with a warm tone, focusing on his qualities like listening, caring, understanding, cute, smart, make the wish a bit personal and emotional. End the wish by wishing him a fantastic day!"
 
 if st.button("✨ Show My Special Wish ✨"):
     with st.spinner():
