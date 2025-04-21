@@ -80,7 +80,6 @@ st.markdown(
 
 # --- HEADER ---
 st.markdown("<h1>🎉 Happy Birthday, Aditya! 🎂</h1>", unsafe_allow_html=True)
-st.markdown("<p>A little digital surprise just for you!</p>", unsafe_allow_html=True)
 st.markdown("---")
 
 # --- BIRTHDAY WISH ---
