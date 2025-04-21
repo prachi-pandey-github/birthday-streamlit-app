@@ -74,15 +74,7 @@ st.markdown(
             border-radius: 5px;
             background-color: #fff;
         }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
-# --- FLOWER SHOWER EFFECT ---
-components.html("""
-    <style>
-        .petal {
+        .flower-shower {
             position: fixed;
             top: -50px;
             width: 30px;
@@ -102,14 +94,14 @@ components.html("""
         const numPetals = 20;
         for (let i = 0; i < numPetals; i++) {
             let petal = document.createElement("div");
-            petal.classList.add("petal");
+            petal.classList.add("flower-shower");
             petal.style.left = Math.random() * 100 + "vw";
             petal.style.animationDelay = Math.random() * 5 + "s";
             petal.style.animationDuration = 5 + Math.random() * 5 + "s";
             document.body.appendChild(petal);
         }
     </script>
-""", height=0)
+    """, unsafe_allow_html=True)
 
 # --- HEADER ---
 st.markdown("<h1>🎉 Happy Birthday, Aditya! 🎂</h1>", unsafe_allow_html=True)
