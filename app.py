@@ -96,7 +96,6 @@ birthday_prompt = f"Write a birthday wish for Adii strat with Dear Adii, focusin
 if st.button("✨ Show My Special Wish ✨"):
     with st.spinner():
         birthday_wish = generate_personalized_wish(birthday_prompt)
-        st.subheader("Happy Birthday")
         st.write(f"<p style='font-size: 20px;'>{birthday_wish}</p>", unsafe_allow_html=True)
         st.markdown("---")
 
