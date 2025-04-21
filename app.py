@@ -149,7 +149,7 @@ Happy Birthday to you, my dear,
 So glad you texted, so glad you're here! 💛
 """
 
-if st.button("Read My Special Poem"):
+if st.button("Read a Special Poem"):
     st.markdown(f"<div class='poem-text'>{poem}</div>", unsafe_allow_html=True)
     st.image("images/friends.gif", use_container_width=True)
 
