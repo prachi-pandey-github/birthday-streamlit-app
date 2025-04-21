@@ -129,9 +129,11 @@ image_labels = {
 
 cols = st.columns(len(what_if_images))
 for i, (key, path) in enumerate(what_if_images.items()):
+    article = "an" if key[0].lower() in "aeiou" else "a"
     with cols[i]:
-        if st.button(f"What if Adii were a {key}?"):
+        if st.button(f"What if Adii were {article} {key}?"):
             st.image(path, caption=image_labels[key], use_container_width=True)
+
 
 # --- POEM SECTION ---
 st.markdown("---")
