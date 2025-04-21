@@ -51,17 +51,17 @@ st.markdown(
             font-size: 18px;
         }
         .stButton > button {
-            background-color: #FFB6C1;
-            color: white;
-            font-size: 16px;
-            border-radius: 8px;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+            background-color: #7A4988 !important;
+            color: white !important;
+            font-size: 16px !important;
+            border-radius: 8px !important;
+            border: none !important;
+            padding: 10px 20px !important;
+            cursor: pointer !important;
+            transition: background-color 0.3s ease !important;
         }
         .stButton > button:hover {
-            background-color: #FF69B4;
+            background-color: #633A70 !important;
         }
         .poem-text {
             font-size: 18px;
@@ -90,21 +90,24 @@ birthday_prompt = (
     "Keep it short and warm."
 )
 
-if st.button("✨ Show My Special Wish ✨"):
-    with st.spinner("Generating your birthday wish..."):
-        birthday_wish = generate_personalized_wish(birthday_prompt)
-        st.markdown(f"<p style='font-size: 20px;'>{birthday_wish}</p>", unsafe_allow_html=True)
-        st.markdown("---")
+# Centering the button
+col1, col2, col3 = st.columns([1, 2, 1])
+with col2:
+    if st.button("✨ Show My Special Wish ✨"):
+        with st.spinner("Generating your birthday wish..."):
+            birthday_wish = generate_personalized_wish(birthday_prompt)
+            st.markdown(f"<p style='font-size: 20px;'>{birthday_wish}</p>", unsafe_allow_html=True)
+            st.markdown("---")
 
-        if GIPHY_API_KEY:
-            st.session_state['gif_urls'] = []
-            terms = ["cute birthday", "happy birthday", "birthday cake", "birthday celebration", "mickey mouse"]
-            random.shuffle(terms)
-            for term in terms[:3]:
-                st.session_state['gif_urls'].extend(search_giphy(term, GIPHY_API_KEY))
-            display_random_gif()
-        else:
-            st.warning("Giphy API key not provided. GIFs won't be shown.")
+            if GIPHY_API_KEY:
+                st.session_state['gif_urls'] = []
+                terms = ["cute birthday", "happy birthday", "birthday cake", "birthday celebration", "mickey mouse"]
+                random.shuffle(terms)
+                for term in terms[:3]:
+                    st.session_state['gif_urls'].extend(search_giphy(term, GIPHY_API_KEY))
+                display_random_gif()
+            else:
+                st.warning("Giphy API key not provided. GIFs won't be shown.")
 
 # --- WHAT IF SECTION ---
 st.markdown("---")
