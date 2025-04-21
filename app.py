@@ -1,21 +1,7 @@
 import streamlit as st
-import google.generativeai as genai
 import random
 
-# --- CONFIGURATION ---
-GEMINI_API_KEY = st.secrets["YOUR_GEMINI_API_KEY"]
-
-genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel('gemini-2.0-flash-thinking-exp-01-21')
-
 # --- HELPER FUNCTIONS ---
-
-def generate_personalized_wish(prompt):
-    try:
-        response = model.generate_content(prompt)
-        return response.text
-    except Exception as e:
-        return f"Error generating birthday wish: {e}"
 
 def display_static_gif(gif_path):
     st.image(gif_path, use_container_width=True)
@@ -70,22 +56,17 @@ st.markdown("<h1>🎉 Happy Birthday, Aditya! 🎂</h1>", unsafe_allow_html=True
 st.markdown("---")
 
 # --- BIRTHDAY WISH ---
-birthday_prompt = (
-    "Write a birthday wish for my online friend Adii. Start with 'Dear Adii', focusing on his qualities like listening, caring, "
-    "understanding, cute, smart. Make the wish personal and emotional. End by wishing him a fantastic day! "
-    "Keep it short."
-)
+personalized_wish = "Dear Adii, Happy Birthday! You're such a wonderful listener, always understanding and caring whenever I need you. Your smartness shines through, and let's be honest, you're also incredibly cute! Thank you for being such a special friend. Wish you a fantastic day!"
 
 # Centering the button
 col1, col2, col3 = st.columns([1, 2, 1])
 with col2:
     if st.button("✨ Show Special Wish ✨"):
         with st.spinner("...."):
-            birthday_wish = generate_personalized_wish(birthday_prompt)
             st.image("images/us.png", use_container_width=True)
-            st.markdown(f"<p style='font-size: 20px;'>{birthday_wish}</p>", unsafe_allow_html=True)
+            st.markdown(f"<p style='font-size: 20px;'>{personalized_wish}</p>", unsafe_allow_html=True)
             st.markdown("---")
-            display_static_gif("images/birthdaygif.gif") 
+            display_static_gif("images/birthday_celebration.gif") # Replace with your GIF path
 
 
 # --- WHAT IF SECTION ---
