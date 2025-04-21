@@ -33,6 +33,43 @@ def display_random_gif():
 if 'gif_urls' not in st.session_state:
     st.session_state['gif_urls'] = []
 
+# --- FLOWER SHOWER ANIMATION ---
+st.markdown(
+    """
+    <style>
+    .flower {
+        position: fixed;
+        font-size: 20px;
+        color: pink;
+        z-index: 1000;
+        animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+        to {
+            transform: translateY(120vh);
+        }
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
+import time
+for _ in range(50):  # Create multiple falling flowers
+    start_x = random.randint(0, 100)
+    fall_duration = random.uniform(2, 5)  # Vary the falling speed
+    flower_type = random.choice(['🌸', '🌷', '🌺', '🌼'])
+    st.markdown(
+        f"""
+        <div class="flower" style="left: {start_x}vw; animation-duration: {fall_duration}s; top: -20px;">
+            {flower_type}
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+    time.sleep(0.1) # Add a small delay to stagger the appearance
+
 # --- CUSTOM CSS ---
 st.markdown(
     """
