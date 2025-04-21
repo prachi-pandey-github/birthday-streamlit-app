@@ -151,4 +151,4 @@ if st.button("Read My Special Poem"):
     st.image("images/friends.gif", use_container_width=True)
 
 st.markdown("---")
-st.write("A little digital birthday surprise for Adii!🧡")
+st.markdown("<p style='text-align: center; font-size: 18px;'>A little digital birthday surprise for Adii!🧡</p>", unsafe_allow_html=True)
