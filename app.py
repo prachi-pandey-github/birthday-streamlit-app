@@ -42,10 +42,11 @@ st.markdown(
         position: fixed;
         font-size: 20px;
         color: pink;
-        z-index: 1000;
-        animation: fall forwards; /* Change to 'forwards' */
-        animation-delay: var(--delay); /* Use a delay variable */
+        z-index: 1; /* Reduced z-index */
+        animation: fall forwards;
+        animation-delay: var(--delay);
         top: -20px;
+        pointer-events: none; /* Make flowers non-interactive */
     }
 
     @keyframes fall {
@@ -63,21 +64,21 @@ for i in range(num_flowers):
     start_x = random.randint(0, 100)
     fall_duration = random.uniform(3, 6)
     flower_type = random.choice(['🌸', '🌷', '🌺', '🌼'])
-    delay = random.uniform(0, 2)  # Stagger the start times
+    delay = random.uniform(0, 2)
 
     st.markdown(
         f"""
         <div class="flower" style="
             left: {start_x}vw;
             animation-duration: {fall_duration}s;
-            --delay: {delay}s; /* Set the delay variable */
+            --delay: {delay}s;
         ">
             {flower_type}
         </div>
         """,
         unsafe_allow_html=True,
     )
-    time.sleep(0.05) # Slight delay between creating elements
+    time.sleep(0.05)
 
 # --- CUSTOM CSS ---
 st.markdown(
