@@ -111,7 +111,7 @@ with col2:
 
 # --- WHAT IF SECTION ---
 st.markdown("---")
-st.subheader("What If? Fun")
+st.subheader("What If? 🤔")
 
 what_if_images = {
     "animal": "images/owl.jpg",
@@ -138,41 +138,12 @@ st.markdown("---")
 st.subheader("A Little Poem for You")
 
 poem = """
-I found a friend, and what joy it did bring!
-A quiet spark, a gentle start,
-Who slowly made home in my heart.
-I used to call you a "stranger" once,
-But now you’re my bestie, no need to run.
-From tiny jokes to talks so deep,
-We talk for hours, never bored, we leap.
-Our records of calls and chats so long,
-We never run out of topics, we just go on!
-It all began on August 30th, you texted me,
-In the evening, so casually,
-A simple ping, and here we are,
-Best friends, connected, no distance too far.
-You listen, care, and never rush,
-Even silence with you feels lush.
-You're cute, you're sweet, a little strange,
-But perfect — no need to change.
-Cute in ways you’ll never know,
-You make my quiet moments glow.
-So here's my wish, from me to you,
-For skies to clear and dreams come true.
-May your days be bright, your nights less loud,
-And may your code forever make you proud.
-I thank you, Tom, for finding me,
-For texting me.
-For being my friend,
-And making sure the laughs don’t end.
-You're the best, and here's the thing,
-You're my favorite person to annoy and ping!
-So, on your birthday, I want to say,
-You’re the best in every single way.
-I wish all your dreams come true,
-May happiness follow all you do.
-On your special day, I hope you see,
-How much you mean to me.💛
+You pinged me once, and just like that,
+A stranger turned into my favorite chat!
+From silly jokes to secrets we share,
+You're oddly perfect—beyond compare.
+Happy Birthday to you, my dear,
+So glad you texted, so glad you're here! 💛
 """
 
 if st.button("Read My Special Poem"):
