@@ -141,12 +141,18 @@ st.markdown("---")
 st.subheader("A Little Poem for You")
 
 poem = """
-You pinged me once, and just like that,
-A stranger turned into my favorite chat!
-From silly jokes to secrets we share,
-You're oddly perfect—beyond compare.
-Happy Birthday to you, my dear,
-So glad you texted, so glad you're here! 💛
+From a LinkedIn ping to endless talks,
+You walked into my life and rewrote the blocks.
+Once a stranger, now my closest one,
+With you, even silence feels like fun.
+
+We chat for hours, never run dry,
+You get me in ways I can't deny.
+Sweet, mature, and oddly cute,
+A bond like ours? Nothing can mute.
+
+Thank you for finding me that day—
+Stay forever, please, okay? 💛
 """
 
 if st.button("Read a Special Poem"):
