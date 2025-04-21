@@ -85,9 +85,9 @@ st.markdown("---")
 
 # --- BIRTHDAY WISH ---
 birthday_prompt = (
-    "Write a birthday wish for Adii. Start with 'Dear Adii', focusing on his qualities like listening, caring, "
+    "Write a birthday wish for my online bestie Adii. Start with 'Dear Adii', focusing on his qualities like listening, caring, "
     "understanding, cute, smart. Make the wish personal and emotional. End by wishing him a fantastic day! "
-    "Keep it short and warm."
+    "Keep it short."
 )
 
 # Centering the button
