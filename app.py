@@ -101,7 +101,7 @@ if st.button("✨ Show My Special Wish ✨"):
         st.markdown("---")
 
         if YOUR_GIPHY_API_KEY:
-            search_terms = ["cute birthday", "happy birthday", "birthday celebration", "birthday cake", "birthday party"]
+            search_terms = ["cute birthday", "happy birthday", "birthday celebration", "birthday cake", "birthday party", "mickey mouse"]
             random.shuffle(search_terms)
             st.session_state['gif_urls'] = []
             for term in search_terms[:3]:
