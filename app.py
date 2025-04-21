@@ -1,11 +1,9 @@
 import streamlit as st
 import google.generativeai as genai
-import requests
 import random
 
 # --- CONFIGURATION ---
 GEMINI_API_KEY = st.secrets["YOUR_GEMINI_API_KEY"]
-GIPHY_API_KEY = st.secrets["YOUR_GIPHY_API_KEY"]
 
 genai.configure(api_key=GEMINI_API_KEY)
 model = genai.GenerativeModel('gemini-2.0-flash-thinking-exp-01-21')
@@ -19,19 +17,8 @@ def generate_personalized_wish(prompt):
     except Exception as e:
         return f"Error generating birthday wish: {e}"
 
-def search_giphy(search_term, api_key):
-    url = f"https://api.giphy.com/v1/gifs/search?api_key={api_key}&q={search_term}&limit=5&rating=g"
-    response = requests.get(url)
-    data = response.json()
-    return [gif['images']['fixed_width']['url'] for gif in data.get('data', [])] if data else []
-
-def display_random_gif():
-    if st.session_state.get('gif_urls'):
-        st.image(random.choice(st.session_state['gif_urls']), use_container_width=True)
-
-# --- SESSION STATE INIT ---
-if 'gif_urls' not in st.session_state:
-    st.session_state['gif_urls'] = []
+def display_static_gif(gif_path):
+    st.image(gif_path, use_container_width=True)
 
 # --- CUSTOM CSS ---
 st.markdown(
@@ -98,16 +85,8 @@ with col2:
             st.image("images/us.png", use_container_width=True)
             st.markdown(f"<p style='font-size: 20px;'>{birthday_wish}</p>", unsafe_allow_html=True)
             st.markdown("---")
+            display_static_gif("images/birthdaygif.gif") 
 
-            if GIPHY_API_KEY:
-                st.session_state['gif_urls'] = []
-                terms = ["cute birthday", "happy birthday", "birthday cake", "birthday celebration"]
-                random.shuffle(terms)
-                for term in terms[:3]:
-                    st.session_state['gif_urls'].extend(search_giphy(term, GIPHY_API_KEY))
-                display_random_gif()
-            else:
-                st.warning("Giphy API key not provided. GIFs won't be shown.")
 
 # --- WHAT IF SECTION ---
 st.markdown("---")
