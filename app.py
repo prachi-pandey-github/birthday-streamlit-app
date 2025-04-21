@@ -4,13 +4,14 @@ import requests
 import random
 
 # --- CONFIGURATION ---
-YOUR_GEMINI_API_KEY = st.secrets["YOUR_GEMINI_API_KEY"]
-YOUR_GIPHY_API_KEY = st.secrets["YOUR_GIPHY_API_KEY"]
+GEMINI_API_KEY = st.secrets["YOUR_GEMINI_API_KEY"]
+GIPHY_API_KEY = st.secrets["YOUR_GIPHY_API_KEY"]
 
-genai.configure(api_key=YOUR_GEMINI_API_KEY)
+genai.configure(api_key=GEMINI_API_KEY)
 model = genai.GenerativeModel('gemini-2.0-flash-thinking-exp-01-21')
 
-# --- BIRTHDAY WISH GENERATION FUNCTION ---
+# --- HELPER FUNCTIONS ---
+
 def generate_personalized_wish(prompt):
     try:
         response = model.generate_content(prompt)
@@ -18,125 +19,119 @@ def generate_personalized_wish(prompt):
     except Exception as e:
         return f"Error generating birthday wish: {e}"
 
-# --- GIPHY SEARCH FUNCTION (RETURNS MULTIPLE GIFS) ---
 def search_giphy(search_term, api_key):
     url = f"https://api.giphy.com/v1/gifs/search?api_key={api_key}&q={search_term}&limit=5&rating=g"
     response = requests.get(url)
     data = response.json()
-    if data and data['data']:
-        return [gif_data['images']['fixed_width']['url'] for gif_data in data['data']]
-    else:
-        return []
+    return [gif['images']['fixed_width']['url'] for gif in data.get('data', [])] if data else []
 
-# --- STREAMLIT APP STATE FOR GIFS ---
+def display_random_gif():
+    if st.session_state.get('gif_urls'):
+        st.image(random.choice(st.session_state['gif_urls']), use_container_width=True)
+
+# --- SESSION STATE INIT ---
 if 'gif_urls' not in st.session_state:
     st.session_state['gif_urls'] = []
 
-def display_random_gif():
-    if st.session_state['gif_urls']:
-        random_gif_url = random.choice(st.session_state['gif_urls'])
-        st.image(random_gif_url, use_container_width=True)
-
-# --- STREAMLIT APP ---
+# --- CUSTOM CSS ---
 st.markdown(
     """
     <style>
-    body {
-        background-color: #f7f7f7;
-        color: #333;
-        font-family: sans-serif;
-    }
-    h1 {
-        color: #FF69B4;
-        text-align: center;
-    }
-    p {
-        text-align: center;
-        font-size: 18px;
-    }
-    .stButton > button {
-        background-color: #FFB6C1; /* LightPink */
-        color: white;
-        font-size: 16px;
-        border-radius: 8px;
-        border: none;
-        padding: 10px 20px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-    .stButton > button:hover {
-        background-color: #FF69B4;
-    }
-    .stSubheader {
-        color: #8A2BE2; /* BlueViolet */
-        margin-top: 20px;
-    }
-    .poem-text {
-        font-size: 18px;
-        white-space: pre-line;
-        color: #555;
-        line-height: 1.6;
-        border: 1px solid #eee;
-        padding: 15px;
-        border-radius: 5px;
-        background-color: #fff;
-    }
+        body {
+            background-color: #f7f7f7;
+            color: #333;
+            font-family: sans-serif;
+        }
+        h1 {
+            color: #FF69B4;
+            text-align: center;
+        }
+        p {
+            text-align: center;
+            font-size: 18px;
+        }
+        .stButton > button {
+            background-color: #FFB6C1;
+            color: white;
+            font-size: 16px;
+            border-radius: 8px;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .stButton > button:hover {
+            background-color: #FF69B4;
+        }
+        .poem-text {
+            font-size: 18px;
+            white-space: pre-line;
+            color: #555;
+            line-height: 1.6;
+            border: 1px solid #eee;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #fff;
+        }
     </style>
     """,
-    unsafe_allow_html=True,
+    unsafe_allow_html=True
 )
 
-st.markdown("<h1 style='color: #FF69B4; text-align: center;'>🎉 Happy Birthday, Aditya! 🎂</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; font-size: 18px;'>A little digital surprise just for you!</p>", unsafe_allow_html=True)
+# --- HEADER ---
+st.markdown("<h1>🎉 Happy Birthday, Aditya! 🎂</h1>", unsafe_allow_html=True)
+st.markdown("<p>A little digital surprise just for you!</p>", unsafe_allow_html=True)
 st.markdown("---")
 
-# --- BIRTHDAY WISH PROMPT (Now defined directly) ---
-birthday_prompt = f"Write a birthday wish for Adii strat with Dear Adii, focusing on his qualities like listening, caring, understanding, cute, smart, make the wish a bit personal and emotional. End the wish by wishing him a fantastic day! don't make it too long"
+# --- BIRTHDAY WISH ---
+birthday_prompt = (
+    "Write a birthday wish for Adii. Start with 'Dear Adii', focusing on his qualities like listening, caring, "
+    "understanding, cute, smart. Make the wish personal and emotional. End by wishing him a fantastic day! "
+    "Keep it short and warm."
+)
 
 if st.button("✨ Show My Special Wish ✨"):
-    with st.spinner():
+    with st.spinner("Generating your birthday wish..."):
         birthday_wish = generate_personalized_wish(birthday_prompt)
-        st.write(f"<p style='font-size: 20px;'>{birthday_wish}</p>", unsafe_allow_html=True)
+        st.markdown(f"<p style='font-size: 20px;'>{birthday_wish}</p>", unsafe_allow_html=True)
         st.markdown("---")
 
-        if YOUR_GIPHY_API_KEY:
-            search_terms = ["cute birthday", "happy birthday", "birthday celebration", "birthday cake", "birthday party", "mickey mouse"]
-            random.shuffle(search_terms)
+        if GIPHY_API_KEY:
             st.session_state['gif_urls'] = []
-            for term in search_terms[:3]:
-                gifs = search_giphy(term, YOUR_GIPHY_API_KEY)
-                st.session_state['gif_urls'].extend(gifs)
-
-            if st.session_state['gif_urls']:
-                display_random_gif()
-            else:
-                st.info("No specific GIF found, but Happy Birthday anyway!")
+            terms = ["cute birthday", "happy birthday", "birthday cake", "birthday celebration", "mickey mouse"]
+            random.shuffle(terms)
+            for term in terms[:3]:
+                st.session_state['gif_urls'].extend(search_giphy(term, GIPHY_API_KEY))
+            display_random_gif()
         else:
-            st.warning("Giphy API key not provided. Cannot display GIFs.")
+            st.warning("Giphy API key not provided. GIFs won't be shown.")
 
+# --- WHAT IF SECTION ---
 st.markdown("---")
-
 st.subheader("What If? Fun")
 
-# --- Image Display Dictionary ---
 what_if_images = {
     "animal": "images/owl.jpg",
     "flower": "images/lavender.jpeg",
     "superhero": "images/ironman.jpg",
-    "place": "images/place.jpeg",
-    # Add more "what if" scenarios and image paths
+    "place": "images/place.jpeg"
+}
+
+image_labels = {
+    "animal": "Adii as an Animal",
+    "flower": "Adii as a Flower",
+    "superhero": "Adii as a Superhero",
+    "place": "Adii as a Place"
 }
 
 cols = st.columns(len(what_if_images))
-image_labels = {"animal": "Adii as an Animal", "flower": "Adii as a Flower", "superhero": "Adii as a Superhero", "place": "Adii as a Place"}
-
 for i, (key, path) in enumerate(what_if_images.items()):
     with cols[i]:
         if st.button(f"What if Adii were a {key}?"):
-            st.image(path, caption=image_labels.get(key, f"Adii as a {key}"), use_container_width=True)
+            st.image(path, caption=image_labels[key], use_container_width=True)
 
+# --- POEM SECTION ---
 st.markdown("---")
-
 st.subheader("A Little Poem for You")
 
 poem = """
@@ -179,6 +174,7 @@ How much you mean to me.💛
 
 if st.button("Read My Special Poem"):
     st.markdown(f"<div class='poem-text'>{poem}</div>", unsafe_allow_html=True)
-    st.image("images/friends.gif",use_container_width=True)
+    st.image("images/friends.gif", use_container_width=True)
+
 st.markdown("---")
 st.write("A little digital birthday surprise for Adii!🧡")
