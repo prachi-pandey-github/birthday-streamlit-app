@@ -96,7 +96,7 @@ with col2:
     if st.button("✨ Show Special Wish ✨"):
         with st.spinner("Generating your birthday wish..."):
             birthday_wish = generate_personalized_wish(birthday_prompt)
-            
+            st.image("images/us.png", use_column_width=True)
             st.markdown(f"<p style='font-size: 20px;'>{birthday_wish}</p>", unsafe_allow_html=True)
             st.markdown("---")
 
