@@ -35,73 +35,36 @@ if 'gif_urls' not in st.session_state:
     st.session_state['gif_urls'] = []
 
 # --- CUSTOM CSS + FLOWER SHOWER ---
-st.markdown(
-    """
-    <style>
-        body {
-            background-color: #f7f7f7;
-            color: #333;
-            font-family: sans-serif;
-        }
-        h1 {
-            color: #FF69B4;
-            text-align: center;
-        }
-        p {
-            text-align: center;
-            font-size: 18px;
-        }
-        .stButton > button {
-            background-color: #7A4988 !important;
-            color: white !important;
-            font-size: 16px !important;
-            border-radius: 8px !important;
-            border: none !important;
-            padding: 10px 20px !important;
-            cursor: pointer !important;
-            transition: background-color 0.3s ease !important;
-        }
-        .stButton > button:hover {
-            background-color: #633A70 !important;
-        }
-        .poem-text {
-            font-size: 18px;
-            white-space: pre-line;
-            color: #555;
-            line-height: 1.6;
-            border: 1px solid #eee;
-            padding: 15px;
-            border-radius: 5px;
-            background-color: #fff;
-        }
-        .flower-shower {
-            position: fixed;
-            top: -50px;
-            width: 30px;
-            height: 30px;
-            background-image: url('https://cdn-icons-png.flaticon.com/512/747/747968.png');
-            background-size: cover;
-            opacity: 0.8;
-            z-index: 9999;
-            animation: fall 10s linear infinite;
-        }
-        @keyframes fall {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
-        }
-    </style>
-    <script>
-        const numPetals = 20;
-        for (let i = 0; i < numPetals; i++) {
-            let petal = document.createElement("div");
-            petal.classList.add("flower-shower");
-            petal.style.left = Math.random() * 100 + "vw";
-            petal.style.animationDelay = Math.random() * 5 + "s";
-            petal.style.animationDuration = 5 + Math.random() * 5 + "s";
-            document.body.appendChild(petal);
-        }
-    </script>
-    """, unsafe_allow_html=True)
+flower_shower_script = """
+<script>
+    const numPetals = 20; 
+    for (let i = 0; i < numPetals; i++) {
+        let petal = document.createElement("div");
+        petal.style.position = 'fixed';
+        petal.style.top = '-50px';
+        petal.style.width = '30px';
+        petal.style.height = '30px';
+        petal.style.backgroundImage = 'url(https://cdn-icons-png.flaticon.com/512/747/747968.png)';
+        petal.style.backgroundSize = 'cover';
+        petal.style.opacity = '0.8';
+        petal.style.zIndex = '9999';
+        petal.style.animation = 'fall 10s linear infinite';
+        petal.style.left = Math.random() * 100 + 'vw';
+        petal.style.animationDelay = Math.random() * 5 + 's';
+        petal.style.animationDuration = 5 + Math.random() * 5 + 's';
+        document.body.appendChild(petal);
+    }
+</script>
+<style>
+    @keyframes fall {
+        0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+        100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+</style>
+"""
+
+# Inject the flower shower animation
+components.html(flower_shower_script, height=0)
 
 # --- HEADER ---
 st.markdown("<h1>🎉 Happy Birthday, Aditya! 🎂</h1>", unsafe_allow_html=True)
