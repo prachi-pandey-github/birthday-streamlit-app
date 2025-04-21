@@ -2,6 +2,7 @@ import streamlit as st
 import google.generativeai as genai
 import requests
 import random
+import time
 
 # --- CONFIGURATION ---
 GEMINI_API_KEY = st.secrets["YOUR_GEMINI_API_KEY"]
@@ -42,7 +43,9 @@ st.markdown(
         font-size: 20px;
         color: pink;
         z-index: 1000;
-        animation: fall linear infinite;
+        animation: fall forwards; /* Change to 'forwards' */
+        animation-delay: var(--delay); /* Use a delay variable */
+        top: -20px;
     }
 
     @keyframes fall {
@@ -55,20 +58,26 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-import time
-for _ in range(50):  # Create multiple falling flowers
+num_flowers = 50
+for i in range(num_flowers):
     start_x = random.randint(0, 100)
-    fall_duration = random.uniform(2, 5)  # Vary the falling speed
+    fall_duration = random.uniform(3, 6)
     flower_type = random.choice(['🌸', '🌷', '🌺', '🌼'])
+    delay = random.uniform(0, 2)  # Stagger the start times
+
     st.markdown(
         f"""
-        <div class="flower" style="left: {start_x}vw; animation-duration: {fall_duration}s; top: -20px;">
+        <div class="flower" style="
+            left: {start_x}vw;
+            animation-duration: {fall_duration}s;
+            --delay: {delay}s; /* Set the delay variable */
+        ">
             {flower_type}
         </div>
         """,
         unsafe_allow_html=True,
     )
-    time.sleep(0.1) # Add a small delay to stagger the appearance
+    time.sleep(0.05) # Slight delay between creating elements
 
 # --- CUSTOM CSS ---
 st.markdown(
