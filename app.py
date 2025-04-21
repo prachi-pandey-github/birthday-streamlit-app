@@ -2,6 +2,7 @@ import streamlit as st
 import google.generativeai as genai
 import requests
 import random
+import streamlit.components.v1 as components
 
 # --- CONFIGURATION ---
 GEMINI_API_KEY = st.secrets["YOUR_GEMINI_API_KEY"]
@@ -33,7 +34,7 @@ def display_random_gif():
 if 'gif_urls' not in st.session_state:
     st.session_state['gif_urls'] = []
 
-# --- CUSTOM CSS ---
+# --- CUSTOM CSS + FLOWER SHOWER ---
 st.markdown(
     """
     <style>
@@ -78,6 +79,38 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+# --- FLOWER SHOWER EFFECT ---
+components.html("""
+    <style>
+        .petal {
+            position: fixed;
+            top: -50px;
+            width: 30px;
+            height: 30px;
+            background-image: url('https://cdn-icons-png.flaticon.com/512/747/747968.png');
+            background-size: cover;
+            opacity: 0.8;
+            z-index: 9999;
+            animation: fall 10s linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+    <script>
+        const numPetals = 20;
+        for (let i = 0; i < numPetals; i++) {
+            let petal = document.createElement("div");
+            petal.classList.add("petal");
+            petal.style.left = Math.random() * 100 + "vw";
+            petal.style.animationDelay = Math.random() * 5 + "s";
+            petal.style.animationDuration = 5 + Math.random() * 5 + "s";
+            document.body.appendChild(petal);
+        }
+    </script>
+""", height=0)
+
 # --- HEADER ---
 st.markdown("<h1>🎉 Happy Birthday, Aditya! 🎂</h1>", unsafe_allow_html=True)
 st.markdown("<p>A little digital surprise just for you!</p>", unsafe_allow_html=True)
@@ -101,7 +134,7 @@ with col2:
 
             if GIPHY_API_KEY:
                 st.session_state['gif_urls'] = []
-                terms = ["cute birthday", "happy birthday", "birthday cake", "birthday celebration", "mickey mouse"]
+                terms = ["cute birthday", "happy birthday", "birthday cake", "birthday celebration"]
                 random.shuffle(terms)
                 for term in terms[:3]:
                     st.session_state['gif_urls'].extend(search_giphy(term, GIPHY_API_KEY))
